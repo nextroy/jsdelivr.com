@@ -25,6 +25,9 @@ switch ($input) {
     case 'bootstrap':
         $query = mysql_query("select * from `$dbname`.`files` WHERE name='bootstrap' ORDER BY `version` DESC");
         break;
+	case 'min':
+        $query = mysql_query("select * from `$dbname`.`files` WHERE name='min' ORDER BY `version` DESC");
+        break;
     default:
         $query = mysql_query("SELECT * FROM  ( select * from `$dbname`.`files` WHERE name LIKE '%$input%' ORDER BY `version`) as tmp_table GROUP BY `name` LIMIT 10");
 }
@@ -44,13 +47,13 @@ while ($row = mysql_fetch_assoc($query)) {
     $query2 = mysql_query("SELECT `version` FROM `$dbname`.`files` WHERE name=\"$name\";");
     while ($arra2[] = mysql_fetch_row($query2));
 
-	for($i = 0; $i < count($arra2); ++$i)
-	{
-		$arra3[] = $arra2[$i][0];
-	}
-	$arra3 = array_filter($arra3);
-	natsort($arra3);
-	$ver = end($arra3);
+    for($i = 0; $i < count($arra2); ++$i)
+    {
+        $arra3[] = $arra2[$i][0];
+    }
+    $arra3 = array_filter($arra3);
+    natsort($arra3);
+    $ver = end($arra3);
     buildresult($name, $ver, $filenames, $author, $homepage, $github, $description, $arra3, $domain);
     $arra3 = '';
     $arra2 = '';
@@ -97,8 +100,8 @@ $(function () {
 
             }
         });
-        $('#'+downloadbox).attr('href','//cdn.jsdelivr.net/'+file+'/'+version+'/' +file+'.zip');        
-        
+        $('#'+downloadbox).attr('href','//cdn.jsdelivr.net/'+file+'/'+version+'/' +file+'.zip');
+
         var yt_url = 'http://$domain/code/integrationver.php?v=' + version + '&n=' + file;
         $.ajax({
             type: 'GET',
