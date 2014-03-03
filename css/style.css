@@ -547,12 +547,12 @@ footer ul li a {
 /** sponsor content on about page **/
 
 .sponsor-pic {
+    float: left;
     width: 15%;
     height: 107px;
-    overflow: hidden;
     margin-right: 30px;
     margin-bottom: 15px;
-    float: left;
+    overflow: hidden;        
 }
 
 .sponsor-pic img {
